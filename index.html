@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>OrchMeet - Smart Meeting Assistant</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f9f9f9;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+    }
+
+    h1 {
+      color: #333;
+      margin-bottom: 1rem;
+    }
+
+    .upload-box {
+      background: #fff;
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      max-width: 500px;
+      width: 100%;
+      text-align: center;
+    }
+
+    input[type="file"] {
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    button {
+      background: #4f46e5;
+      color: white;
+      border: none;
+      padding: 0.8rem 1.2rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    button:hover {
+      background: #4338ca;
+    }
+
+    .result {
+      margin-top: 2rem;
+      background: #f1f5f9;
+      border-left: 4px solid #4f46e5;
+      padding: 1rem;
+      border-radius: 8px;
+      max-width: 500px;
+      width: 100%;
+      text-align: left;
+    }
+
+    .error {
+      color: red;
+      margin-top: 1rem;
+    }
+
+    .loading {
+      color: #555;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>OrchMeet</h1>
+  <div class="upload-box">
+    <h2>Upload Meeting Audio (.mp3)</h2>
+    <input type="file" id="audioInput" accept=".mp3"/>
+    <br/>
+    <button onclick="uploadAudio()">Upload & Process</button>
+    <p class="loading" id="loading" style="display:none;">⏳ Processing, please wait...</p>
+    <p class="error" id="errorMsg"></p>
+  </div>
+
+  <div class="result" id="results" style="display:none;">
+    <h3>Transcript:</h3>
+    <p id="transcript"></p>
+    <h3>Summary:</h3>
+    <p id="summary"></p>
+    <h3>Tasks:</h3>
+    <ul id="tasks"></ul>
+  </div>
+
+  <script>
+    async function uploadAudio() {
+      const fileInput = document.getElementById('audioInput');
+      const file = fileInput.files[0];
+      const errorMsg = document.getElementById("errorMsg");
+      const loading = document.getElementById("loading");
+      const results = document.getElementById("results");
+
+      errorMsg.textContent = "";
+      results.style.display = "none";
+
+      if (!file) {
+        errorMsg.textContent = "Please select an MP3 file.";
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("audio", file);
+
+      try {
+        loading.style.display = "block";
+
+        const response = await fetch("http://127.0.0.1:5000/upload", {
+          method: "POST",
+          body: formData
+        });
+
+        loading.style.display = "none";
+
+        if (!response.ok) {
+          const errorText = await response.text();
+          throw new Error(errorText || "Something went wrong!");
+        }
+
+        const data = await response.json();
+
+        document.getElementById("transcript").textContent = data.transcript;
+        document.getElementById("summary").textContent = data.summary;
+        const tasksList = document.getElementById("tasks");
+        tasksList.innerHTML = "";
+        data.tasks.forEach(task => {
+          const li = document.createElement("li");
+          li.textContent = task;
+          tasksList.appendChild(li);
+        });
+
+        results.style.display = "block";
+
+      } catch (err) {
+        loading.style.display = "none";
+        errorMsg.textContent = "❌ " + err.message;
+        console.error("Upload error:", err);
+      }
+    }
+  </script>
+</body>
+</html>
