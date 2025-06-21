@@ -64,9 +64,13 @@ OrchMeet/
 ---
 ### 📌 Example Workflow
 Upload .mp3 meeting audio
+
 Whisper transcribes audio
+
 GPT-4o summarizes transcript
+
 Tasks are extracted and displayed
+
 Schedule and notify features can be triggered
 
 ---
