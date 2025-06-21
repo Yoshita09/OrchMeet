@@ -1,4 +1,4 @@
-# 🎙️ OrchMeet - AI-Powered Meeting Assistant
+# OrchMeet - AI-Powered Meeting Assistant
 
 OrchMeet is a smart multi-agent system that processes meeting audio files and provides automated **transcription**, **summarization**, **task extraction**, **calendar scheduling**, and **notifications**. Designed for professionals and teams to save time and maximize productivity.
 
@@ -108,6 +108,13 @@ python3 -m http.server 3002
 ```
 
 ---
+
+## 👩‍💻 Made by
+
+**Yoshita Singhal**
+
+- GitHub: [@yoshita09](https://github.com/yoshita09)
+- LinkedIn: [Yoshita Singhal](https://linkedin.com/in/yoshita09)
 
 
 ---
