@@ -1,4 +1,4 @@
-# OrchMeet - AI-Powered Meeting Assistant
+# OrchMeet - Autonomous Meeting Assistant
 
 OrchMeet is a smart multi-agent system that processes meeting audio files and provides automated **transcription**, **summarization**, **task extraction**, **calendar scheduling**, and **notifications**. Designed for professionals and teams to save time and maximize productivity.
 
