@@ -55,7 +55,7 @@ OrchMeet/
 | Agent Name     | File             | Description                                                                 | Input             | Output                      | Dependencies                                 |
 |----------------|------------------|-----------------------------------------------------------------------------|-------------------|-----------------------------|----------------------------------------------|
 | **Transcriber**| `transcriber.py` | Converts uploaded `.mp3` meeting audio into raw transcript text using Whisper | Audio file (.mp3) | Transcript text             | `openai-whisper`                             |
-| **Summarizer** | `summarizer.py`  | Uses Azure OpenAI (GPT-4o) to generate a meeting summary from transcript    | Transcript text   | Summary text                | `openai`, `.env` (`AZURE_...` keys)          |
+| **Summarizer** | `summarizer.py`  | Uses Azure OpenAI (GPT-4o) to generate a meeting summary from transcript    | Transcript text   | Summary text                | `openai`, `.env`           |
 | **Extractor**  | `extractor.py`   | Extracts actionable tasks and to-dos from the transcript                     | Transcript text   | List of tasks               | `openai`                                     |
 | **Scheduler**  | `scheduler.py`   | Adds extracted tasks to Google Calendar                                     | Task list         | Google Calendar events      | `google-api-python-client`, `oauth2client`   |
 | **Notifier**   | `notifier.py`    | Sends meeting summary and tasks via email or Slack webhook                  | Summary + tasks   | Notification sent           | `smtplib`, `email`, `requests`               |
