@@ -14,7 +14,7 @@ OrchMeet is a smart multi-agent system that processes meeting audio files and pr
 - ✍️ Real-time transcription using [Whisper](https://github.com/openai/whisper)
 - 🧠 Intelligent summarization using GPT-4o via Azure OpenAI
 - 📋 Task extraction using NLP prompts
-- 📅 Automatic Google Calendar scheduling (optional)
+- 📅 Automatic Google Calendar scheduling 
 - 🔔 Email/SMS notifications with meeting summary and tasks
 
 ---
